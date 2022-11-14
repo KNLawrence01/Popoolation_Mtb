@@ -3,12 +3,17 @@ import re
 import subprocess
 import csv
 import pandas as pd
+
+##Usage
 if len(sys.argv) != 4:
     print("Usage: Auto_popoolation.py <csv file>  <Reference .fasta file> <Reference .bed file> <filter %>")
+
 filename = sys.argv[1]
 referenceBed= sys.argv[3]
 referenceFasta = sys.argv[2]
 filter = sys.argv[3]
+
+##Create command for PoPoolation
 commands = []
 namesOfTsvs = []
 with open(filename, 'r') as file:
@@ -24,10 +29,14 @@ with open(filename, 'r') as file:
             command = "/home/mtopf/scripts/MT_run_popoolation.sh " + row[0] + " " + referenceBed + " " + referenceFasta + " " + ancestor + passages + "\n"
             namesOfTsvs.append(row[0] + ".tsv")
             commands.append(command)
+
+##Filter PoPoolation output to variants that change >Filter % (usually use filter >30%)            
 for x in commands:
     subprocess.run(x.split(" "))
 for x in namesOfTsvs:
     subprocess.run(["python3", "popoolation_MT_updated.py"], text=True, input= x + " " + filter)
+
+##Annotate each variant using reference genome
 bedInfo = []
 with open(referenceBed, 'r') as bedfile:
     reader = csv.reader(bedfile, delimiter='\t')
