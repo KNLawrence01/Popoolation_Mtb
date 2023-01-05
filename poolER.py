@@ -1,0 +1,30 @@
+import sys
+import re
+import subprocess
+import csv
+if len(sys.argv) != 4:
+    print("Usage: poolER.py <csv file>  <Reference .fasta file> <Reference .bed file>")
+    sys.exit()
+filename = sys.argv[1]
+referenceBed= sys.argv[3]
+referenceFasta = sys.argv[2]
+commands = []
+namesOfTsvs = []
+with open(filename, 'r') as file:
+    reader = csv.reader(file)
+    for row in reader:
+        if row[0] != "ID":
+            ancestor = row[1].strip() + ".ready.bam"
+            passages = ""
+            #need to filter out the the empty values here
+            newrow = [i for i in row if i != ""]
+            print(newrow)
+            for x in range(2,len(row)):
+                passages = passages + " " + row[x] + ".ready.bam"
+            command = "bash /home/mtopf/scripts/MT_run_popoolation.sh " + row[0] + " " + referenceFasta + " " + referenceBed + " " + ancestor + passages + "\n"
+            namesOfTsvs.append(row[0] + ".tsv")
+            commands.append(command)
+for x in commands:
+    subprocess.run(x.split(" "))
+
+
