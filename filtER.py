@@ -12,7 +12,7 @@ bedInfo = []
 
 
 for x in namesOfTsvs:
-    subprocess.run(["python3", "popoolationParser_MT_updated.py", x,  filter])
+    subprocess.run(["python3", "popoolationParser.py", x,  filter])
 
 with open(referenceBed, 'r') as bedfile:
     reader = csv.reader(bedfile, delimiter='\t')
