@@ -1,3 +1,6 @@
+##Script to filter output from poolER to desired frequency and annotate variants in a high throughput manner. 
+#Written by Mohamed Mohamed & Madeline Topf; edited by Madison Youngblom.
+
 import csv
 import sys
 import subprocess
