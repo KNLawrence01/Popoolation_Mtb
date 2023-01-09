@@ -1,5 +1,6 @@
 #! bin/bash
 #####
+#Script to run Popoolation. Written by Madison Youngblom and edited by Madeline Topf.
 # Usage: run_popoolation.sh <strain_name> <path/to/ref> <path/to/bed> <bam1> ... <bamN>
 #####
 strain="$1"
