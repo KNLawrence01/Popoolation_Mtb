@@ -1,4 +1,4 @@
-# Pooled Evolve & Resequence genomic analysis
+# Pooled evolve & resequence analysis
 We conducted an evolve and re-sequence (ER) experiment with Gardnerella vaginalis. We passaged G. vaginalis strains with a selective pressure to grow as a biofilm. Next, we conducted whole-genome sequencing of pooled populations at intermediate passages over the course of the experiment. These scripts determine the genetic changes in bacterial populations over the course of passaging and annotate variants of interest. 
 
 **poolER.py**
