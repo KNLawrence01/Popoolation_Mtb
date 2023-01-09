@@ -1,3 +1,6 @@
+##script to filter output of popoolation to only variants of desired frequency change
+##written by Mohamed Mohamed and edited by Madeline Topf; 2021
+
 import sys
 import csv
 tsv = input("Name of .tsv file:")
