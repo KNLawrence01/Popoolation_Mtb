@@ -1,3 +1,5 @@
+##Script to run popoolation in a high-throughput manner. Written by Mohamed Mohamed & Madeline Topf
+
 import sys
 import re
 import subprocess
