@@ -42,7 +42,7 @@ with open(filename, 'w', newline='') as csvfile:
         try:
             if (row[0] == "pos"):
                 passages = row[3:]
-                csvwriter.writerow(['trajectory'] + ['Anc'] + passagenums + ['pos'])
+                csvwriter.writerow(['trajectory'] + ['ref'] + ['alt'] + ['Anc'] + passagenums + ['pos'])
             elif ((abs(int(row[len(passages) + 2]) - int(row[3])) >= int(minimumFreq))):
                 rowsToAdd.append(row)
         except:
@@ -50,7 +50,7 @@ with open(filename, 'w', newline='') as csvfile:
         rowsToAddCopy = rowsToAdd.copy()
 
     for i, x in enumerate(rowsToAddCopy):
-        thearray = x[3:]
+        thearray = x[1:]
         csvwriter.writerow(["t" + str(tCount)] + thearray + [x[0]])
         tCount += 1
 
