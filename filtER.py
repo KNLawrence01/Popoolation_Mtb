@@ -2,7 +2,7 @@ import csv
 import sys
 import subprocess
 if len(sys.argv) < 3:
-    print("Usage: filtER.py <tsv output from poolER '_popoolation.tsv'> <Reference bed> <filter %> <data.csv>")
+    print("Usage: filtER.py <tsv output from poolER '_popoolation.tsv'> <Reference bed> <filter %> <template.csv>")
     sys.exit()
 
 ##define arguments
