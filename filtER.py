@@ -5,6 +5,8 @@ if len(sys.argv) < 3:
     print("Usage: filtER.py <tsv output from poolER '_popoolation.tsv'> <Reference bed> <filter %> <template.csv>")
     sys.exit()
 
+##This script filters the allele trajectories that meet certain criteria
+
 ##define arguments
 referenceBed = sys.argv[2]
 tsv = sys.argv[1]
