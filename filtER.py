@@ -26,8 +26,9 @@ with open(referenceBed, 'r') as bedfile:
     reader = csv.reader(bedfile, delimiter='\t')
     for row in reader:
         if "header" not in row[0]:
-            annot = row[9].split(";")
-            product =  annot.pop()
+            annot = row[9]
+            print(annot)
+            product =  annot
             tupleToAdd = (int(row[1]), int(row[2]), product)
             bedInfo.append(tupleToAdd)
 
