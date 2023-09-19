@@ -3,7 +3,9 @@ We conducted an evolve and re-sequence (ER) experiment with Gardnerella vaginali
 
 **poolER.py**
 
-poolER runs popoolation (run_popoolation.sh) in a high throughput manner. poolER takes in a csv file of the file names and passage information formatted like template.csv, as well as a reference genome fasta and bed file. It outputs a .csv file of the frequency change at every position in the genome over passaging time.
+poolER runs popoolation (run_popoolation.sh) in a high throughput manner. poolER takes in a csv file of the file names and passage information formatted like template.csv, as well as a reference genome fasta and bed file. It outputs a .csv file of the frequency change at every position in the genome over passaging time. 
+
+The path to run_popoolation.sh is hard-coded.
 
 **filtER.py**
 
