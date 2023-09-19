@@ -1,0 +1,82 @@
+---
+title: "findingConvergentHits"
+output: html_document
+date: "2023-06-29"
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+
+##this script inputs the pooled and single seq data and outputs a list of hits which occur more than one time in a gene. Hits that occur in the same strain in both pooled and single sequencing are filtered out. 
+
+assumptions: 
+- hits that occur in the same strain and both pooled and single seq should be filtered out.
+- a hit is counted if it changes in allele frequency by >10% 
+- not taking into account any data that occurs in biofilm but not planktonic, and vice versa. 
+- filtered out all deletions.
+
+```{r, include= FALSE, echo = FALSE}
+library(tidyverse)
+data_dir = "~/2023.04.19_Final_alleleTrajectories/Allele_frequency/"
+data_list <- fs::dir_ls(data_dir, regexp = ".csv$")
+
+#return a single data framee 
+my_data <- data_list %>% 
+    purrr::map_dfr(read_csv, show_col_types = FALSE, .id = "source") %>% 
+    dplyr::mutate(source = stringr::str_replace(source, "file/path", ""))
+```
+
+```{r reading, include=FALSE}
+freq <-  my_data %>% mutate(type = case_when(grepl("POOL", ID) ~ "pool", TRUE ~ "single"), strain = case_when(grepl("GV2", ID) ~ "GV2", grepl("GV14018", ID) ~ "GV14018"), condition = case_when(grepl("Biofilm", source) ~ "Biofilm", grepl("Planktonic", source) ~ "Planktonic"))
+
+freq <- freq %>% select(pos, ID, ref, alt, INFO, Anc, "0", "5", "6", "7", "8","9", "10", annot, strain, condition, type)
+
+                        
+# Clean up ID column
+freq$ID <- gsub("POOL_", "", freq$ID)
+freq$ID <- gsub("Ssapro", "", freq$ID)
+
+#remove deletions
+freq <- freq %>% filter(alt != "DEL")
+  
+# Remove duplicate rows
+freqs_filtered <- freq[!duplicated(freq[, c("pos", "ID")]), ]
+freqs_filtered$type <- NULL
+split_info <- strsplit(freqs_filtered$INFO, "\\|") 
+fourth_element <- sapply(split_info, "[[", 4)
+gene <- as.character(fourth_element)
+freqs_filtered$gene <- gene
+
+hits <- freqs_filtered %>% filter(duplicated(gene) | duplicated(gene, fromLast = TRUE)) 
+hits$pos <- as.numeric(hits$pos)
+
+
+
+#write_csv(hits, "~/2023.04.19_Final_alleleTrajectories/2023.07.03_convergentHits.csv")
+```
+
+Hits where the ancestor is invariant.
+No hits went from freq = 100 to freq = 0
+```{r}
+start <- hits %>% filter(Anc == 100 | Anc == 0) %>% 
+  group_by(gene, strain, condition) %>% 
+  mutate(strain_condition_hit_count= n()) %>% 
+  mutate(gene = gsub("DPDCJFFM_01065", "fas", gene))
+
+fixed <- start %>% rename(P0 = '0', P5 = '5', P6 = '6', P7 = '7', P8 = '8', P9 = '9', P10 = '10')
+filter <- fixed %>% filter(P5 >= 95 | P6 >= 95 | P7 >= 95 | P8 >= 95 | P9 >= 95 | P10 >= 95)
+
+Counts <- filter %>% select(strain, condition, gene, strain_condition_hit_count) %>% 
+  distinct()
+
+
+#write_csv(filter, "~/2023.04.19_Final_alleleTrajectories/2023.07.17_Filtered_convergentHits.csv")
+
+
+#hits where positions don't happen more than once.
+unique <- hits %>% filter(!duplicated(pos))
+
+```
