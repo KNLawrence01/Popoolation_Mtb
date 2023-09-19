@@ -23,7 +23,7 @@ with open(filename, 'r') as file:
             print(newrow)
             for x in range(2,len(row)):
                 passages = passages + " " + row[x] + ".ready.bam"
-            command = "bash /home/mtopf/scripts/MT_run_popoolation.sh " + row[0] + " " + referenceFasta + " " + referenceBed + " " + ancestor + passages + "\n"
+            command = "bash poolER/run_popoolation.sh " + row[0] + " " + referenceFasta + " " + referenceBed + " " + ancestor + passages + "\n"
             namesOfTsvs.append(row[0] + ".tsv")
             commands.append(command)
 for x in commands:
