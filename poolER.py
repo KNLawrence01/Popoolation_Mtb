@@ -4,14 +4,19 @@ import sys
 import re
 import subprocess
 import csv
+
+##Define arguments 
 if len(sys.argv) != 4:
     print("Usage: poolER.py <csv file>  <Reference .fasta file> <Reference .bed file>")
     sys.exit()
+    
 filename = sys.argv[1]
-referenceBed= sys.argv[3]
 referenceFasta = sys.argv[2]
+referenceBed= sys.argv[3]
 commands = []
 namesOfTsvs = []
+
+##use the csv file to read in filenames in order to run popoolation.sh 
 with open(filename, 'r') as file:
     reader = csv.reader(file)
     for row in reader:
