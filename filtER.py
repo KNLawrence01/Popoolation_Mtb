@@ -37,7 +37,7 @@ with open(data, 'r') as datafile:
     read = csv.reader(datafile)
     for row in read:
         allnames = row[0]
-        if name in allnames:
+        if allnames == name: ##here the name of the ID must match the correct name
             og_list = row[2:]
             new_list = []
             for item in og_list:
