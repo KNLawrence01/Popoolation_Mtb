@@ -20,6 +20,4 @@ names(keep)[names(keep) == "ALT"] <- "alt"
 
 
 final <- left_join(keep, input, by= c("ID", "pos", "ref", "alt"))
-name <- paste0(unique(df$ID), "_final.csv")
-print(name)
-write_csv(final, name)
+write_csv(final, "final.csv")
