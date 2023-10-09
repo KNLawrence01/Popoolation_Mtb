@@ -54,7 +54,7 @@ with open(filename, 'w', newline='') as csvfile:
         try:
             if (row[0] == "pos"):
                 passages = row[3:]
-                csvwriter.writerow(['ID'] + ['ref'] + ['alt'] + ['Anc'] + passagenums + ['pos'])
+                csvwriter.writerow(['ID'] + ['ref'] + ['alt'] + ['Anc'] + passagenums + ['pos'] + ['minimumFreq'])
             elif ((abs(int(row[len(passages) + 2]) - int(row[3])) >= int(minimumFreq))):
                 rowsToAdd.append(row)
         except:
