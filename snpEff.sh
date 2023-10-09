@@ -1,4 +1,5 @@
 #!/bin/bash
+#Usage: snpEff.sh <_withAnnot.csv>
 
 # Run R script to generate VCF file from CSV input
 Rscript ~/scripts/poolER/csvToVCF.R $1
@@ -8,4 +9,3 @@ java -Xmx8g -jar /opt/PepPrograms/snpEff_v5.0/snpEff.jar GV_14018 outfile.vcf > 
 
 #run R script to combine 
 Rscript ~/scripts/poolER/combine.R $1
-cat *final.csv > allFinal.csv
