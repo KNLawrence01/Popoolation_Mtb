@@ -16,6 +16,7 @@ filename = tsv.replace('.tsv', "") + ".csv"
 
 name = sys.argv[1].replace("_popoolation.tsv", "")
 minimumFreq = sys.argv[3]
+freq = [minimumFreq]
 bedInfo = []
 data = sys.argv[4]
 passages = []
@@ -54,7 +55,7 @@ with open(filename, 'w', newline='') as csvfile:
         try:
             if (row[0] == "pos"):
                 passages = row[3:]
-                csvwriter.writerow(['ID'] + ['ref'] + ['alt'] + ['Anc'] + passagenums + ['pos'] + ['minimumFreq'])
+                csvwriter.writerow(['ID'] + ['ref'] + ['alt'] + ['Anc'] + passagenums + ['pos'] + freq)
             elif ((abs(int(row[len(passages) + 2]) - int(row[3])) >= int(minimumFreq))):
                 rowsToAdd.append(row)
         except:
