@@ -9,7 +9,10 @@ if (length(args) == 0) {
   stop("Please provide an input file name as a command-line argument.")
 }
 
-input <- read_csv(args[1], col_types= cols(ref = col_character(), alt= col_character()))
+
+infile <- args[1]
+
+input <- read_csv(infile, col_types= cols(ref = col_character(), alt= col_character()))
 
 df <- read_tsv("snpEff.tsv", skip= 5)
 
@@ -20,4 +23,5 @@ names(keep)[names(keep) == "ALT"] <- "alt"
 
 
 final <- left_join(keep, input, by= c("ID", "pos", "ref", "alt"))
-write_csv(final, "final.csv")
+outfile <- gsub("_withAnnot.csv", "_snpEff.csv", infile)
+write_csv(final, outfile)
