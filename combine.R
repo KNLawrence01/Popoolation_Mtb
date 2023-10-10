@@ -9,9 +9,9 @@ if (length(args) == 0) {
   stop("Please provide an input file name as a command-line argument.")
 }
 
-input <- read_csv(args[1])
+input <- read_csv(args[1], col_types= cols(ref = col_character(), alt= col_character()))
 
-df <- read_tsv("snpEff.tsv", skip= 5, col_types= cols(ref = col_character(), alt= col_character()))
+df <- read_tsv("snpEff.tsv", skip= 5)
 
 keep <- df %>% select('#CHROM', POS, ID, REF, ALT, INFO)
 names(keep)[names(keep) == "POS"] <- "pos"
