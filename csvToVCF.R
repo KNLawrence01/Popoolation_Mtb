@@ -9,9 +9,11 @@ if (length(args) == 0) {
   stop("Please provide an input file name as a command-line argument.")
 }
 
-csv <- read_csv(args[1])
+infile <- args[1]
+csv <- read_csv(infile, col_types = cols(ref = col_character(), alt = col_character()))
 
 csv <- csv %>% select(ID, ref, alt, pos)
+
 colnames(csv) <- c("ID", "REF", "ALT", "POS")
 csv$'#CHROM' <- "AP012332.1"
 csv$FILTER <- "."
@@ -24,5 +26,7 @@ csv$Genome <- 1
 df <- csv[, c("#CHROM", "POS", "ID", "REF", "ALT", "QUAL", "FILTER", "INFO", "FORMAT", "Genome")]
 
 ##write output file
-write_tsv(df, "outfile.vcf")
+outfile <- gsub(".csv", ".vcf", infile)
+print(outfile)
+write_tsv(df, outfile)
 
