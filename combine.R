@@ -14,7 +14,8 @@ infile <- args[1]
 
 input <- read_csv(infile, col_types= cols(ref = col_character(), alt= col_character()))
 
-df <- read_tsv("snpEff.tsv", skip= 5)
+snpeff <- args[2]
+df <- read_tsv(snpeff, skip= 5)
 
 keep <- df %>% select('#CHROM', POS, ID, REF, ALT, INFO)
 names(keep)[names(keep) == "POS"] <- "pos"

@@ -15,7 +15,7 @@ csv <- read_csv(infile, col_types = cols(ref = col_character(), alt = col_charac
 csv <- csv %>% select(ID, ref, alt, pos)
 
 colnames(csv) <- c("ID", "REF", "ALT", "POS")
-csv$'#CHROM' <- "AP012332.1"
+csv$'#CHROM' <- "NZ_CP083170.1"
 csv$FILTER <- "."
 csv$INFO <- "."
 csv$QUAL <- "."
