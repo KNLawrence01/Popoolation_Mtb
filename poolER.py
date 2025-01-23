@@ -21,17 +21,15 @@ with open(filename, 'r') as file:
     reader = csv.reader(file)
     for row in reader:
         if row[0] != "ID":
-            ancestor = row[1].strip() + ".ready.bam"
+            ancestor = row[1].strip() + ".realn.bam"
             passages = ""
             #need to filter out the the empty values here
             newrow = [i for i in row if i != ""]
             print(newrow)
             for x in range(2,len(row)):
-                passages = passages + " " + row[x] + ".ready.bam"
-            command = "bash poolER/run_popoolation.sh " + row[0] + " " + referenceFasta + " " + referenceBed + " " + ancestor + passages + "\n"
+                passages = passages + " " + row[x] + ".realn.bam"
+            command = "bash run_popoolation.sh " + row[0] + " " + referenceFasta + " " + referenceBed + " " + ancestor + passages + "\n"
             namesOfTsvs.append(row[0] + ".tsv")
             commands.append(command)
 for x in commands:
     subprocess.run(x.split(" "))
-
-
