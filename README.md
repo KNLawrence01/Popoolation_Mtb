@@ -1,9 +1,9 @@
 # Pooled evolve & re-sequence analysis
-We conducted an evolve and re-sequence (ER) experiment with Gardnerella vaginalis. We passaged G. vaginalis strains with a selective pressure to grow as a biofilm. Next, we conducted whole-genome sequencing of pooled populations at intermediate passages over the course of the experiment. These scripts determine the genetic changes in bacterial populations over the course of passaging and annotate variants of interest. We used reference genome ATCC14018, here GV_14018.fasta and GV_14018.bed.
+We conducted an evolve and re-sequence (ER) experiment with Mycobacterium tuberculosis. We passaged M. tuberculosis strains with a selective pressure to grow as a biofilm. Next, we conducted whole-genome sequencing of pooled populations at intermediate passages over the course of the experiment. These scripts determine the genetic changes in bacterial populations over the course of passaging and annotate variants of interest. We used reference genome H37Rv, here MtbNCBIH37Rv.fa and Mtb_removeRegions_mergedCloserThan1000bp.bed.
 
 **poolER.py**
 
-poolER runs popoolation (run_popoolation.sh) in a high throughput manner. poolER takes in a csv file of the file names and passage information formatted like template.csv, as well as a reference genome fasta and bed file. It outputs a .csv file of the frequency change at every position in the genome over passaging time. 
+poolER runs popoolation (run_popoolation.sh) in a high throughput manner. poolER takes in a csv file of the file names and passage information formatted like MT031_template.csv, as well as a reference genome fasta and bed file. It outputs a .csv file of the frequency change at every position in the genome over passaging time. 
 
 The path to run_popoolation.sh is hard-coded.
 
